@@ -1,0 +1,34 @@
+{% extends 'tweets/base.html' %}
+{%block title %}
+This is home title
+{% endblock title%}
+    {% block content %}
+    Welcome to tweetme 2
+    <div id="tweet">
+    </div>
+    <script>
+    const tweetElement = document.getElementById("tweet")
+    const xhr = new XMLHttpRequest()
+    const method = 'GET'
+    const url = "/tweets_list"
+    const responseType = "json"
+
+    xhr.responseType = responseType
+    xhr.open(method,url)
+    xhr.onload = function(){
+        console.log(xhr.response)
+        var listedItems = xhr.response.response
+        var finalTweetStr = ""
+        
+        for(let i=0;i<listedItems.length;i++){
+            console.log(i)
+            let currentItem = "<div class='mb-4'><h1>"+listedItems[i].id+"</h1>"+"<p>"+listedItems[i].content+"</p>";
+            finalTweetStr +=currentItem;        
+        }
+        console.log(finalTweetStr)
+        tweetElement.innerHTML = finalTweetStr;
+    }
+    xhr.send()
+    </script>
+
+    {% endblock content%}
