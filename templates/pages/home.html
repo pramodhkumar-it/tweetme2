@@ -3,10 +3,19 @@
 This is home title
 {% endblock title%}
     {% block content %}
-    Welcome to tweetme 2
-    <div id="tweet">
+    <div class="row text-center">
+        <div class="col">
+        <h1>Welcome to tweetme 2</h1>
+        </div>
+    </div>
+
+    <div class ="row" id="tweet">
+    Loading....
     </div>
     <script>
+    function formatTweetElement(tweet){
+        return "<div class='mb-4'><h1>"+tweet.id+"</h1>"+"<p>"+tweet.content+"</p>";
+    }
     const tweetElement = document.getElementById("tweet")
     const xhr = new XMLHttpRequest()
     const method = 'GET'
@@ -22,7 +31,7 @@ This is home title
         
         for(let i=0;i<listedItems.length;i++){
             console.log(i)
-            let currentItem = "<div class='mb-4'><h1>"+listedItems[i].id+"</h1>"+"<p>"+listedItems[i].content+"</p>";
+            let currentItem = formatTweetElement(listedItems[i]);
             finalTweetStr +=currentItem;        
         }
         console.log(finalTweetStr)

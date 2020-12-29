@@ -1,6 +1,15 @@
 from django.shortcuts import render
-from django.http import HttpResponse,Http404,JsonResponse   
+from django.http import HttpResponse,Http404,JsonResponse 
+from .forms import TweetForm  
 from .models import Tweet
+
+def tweet_create_view(request,*args,**kwargs):
+    form = TweetForm(request.POST or None)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.save()
+        form = TweetForm()
+    return render(request,"components/form.html",context={"form":form},status=200)
 # Create your views here.
 def home_views(request,*args,**kwargs):
     #return HttpResponse("<h1>HELLO WORLD</h1>")
